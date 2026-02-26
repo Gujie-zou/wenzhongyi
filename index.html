@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温暖中医 · 药方索引</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d5 100%);
+            color: #4a4a4a;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: 2px; }
+        .header p { opacity: 0.9; font-size: 1rem; }
+        .source-note {
+            background: #fff8f0;
+            border-left: 4px solid #8B4513;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 800px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
+        .search-box {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e8e0d5;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-box input:focus { border-color: #8B4513; }
+        
+        /* 标签页 */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 1.5rem 0;
+            background: white;
+            padding: 6px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #8B4513;
+            color: white;
+            font-weight: 500;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* 卡片样式 */
+        .medicine-card, .disease-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .medicine-card:hover, .disease-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+        }
+        .medicine-name, .disease-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+        .medicine-effect, .disease-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        .medicine-tags, .disease-medicines {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .tag-symptom { background: #fff3e0; color: #e65100; }
+        .tag-medicine { background: #e8f5e9; color: #2e7d32; }
+        
+        /* 详情面板 */
+        .detail-panel {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #e0d5c8;
+        }
+        .detail-panel.active { display: block; }
+        .detail-panel h4 {
+            color: #8B4513;
+            margin: 1rem 0 0.5rem;
+            font-size: 1rem;
+        }
+        .detail-panel p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+        .source-link {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        
+        /* 病症索引下的方剂列表 */
+        .medicine-list-item {
+            background: #faf8f5;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            border-left: 3px solid #d4c4b0;
+            transition: all 0.2s;
+        }
+        .medicine-list-item:hover {
+            background: #f5f0e8;
+            border-left-color: #8B4513;
+        }
+        .medicine-list-item .name {
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 0.3rem;
+        }
+        .medicine-list-item .effect {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #999;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 温暖中医</h1>
+        <p>药方索引 · 对症检索 · 精读整理</p>
+    </div>
+    
+    <div class="source-note">
+        <strong>📚 内容来源</strong>：本网站所有内容均整理自微信公众号「温暖中医」，仅供个人学习参考。版权归原作者及原公众号所有。
+    </div>
+    
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="search" placeholder="搜索药名、症状或病症..." onkeyup="doSearch()">
+        </div>
+        
+        <!-- 标签页 -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('by-medicine')">💊 按方剂</button>
+            <button class="tab" onclick="switchTab('by-disease')">🩺 按病症</button>
+        </div>
+        
+        <!-- 按方剂 -->
+        <div id="by-medicine" class="tab-content active">
+            
+            <!-- 葛根汤颗粒 -->
+            <div class="medicine-card" onclick="toggleDetail('med-1')">
+                <div class="medicine-name">葛根汤颗粒</div>
+                <div class="medicine-effect">解肌散寒，主治风寒感冒、颈椎病、肩周炎、落枕</div>
+                <div class="medicine-tags">
+                    <span class="tag tag-symptom">怕冷怕风</span>
+                    <span class="tag tag-symptom">后背僵硬</span>
+                    <span class="tag tag-symptom">风寒感冒</span>
+                    <span class="tag tag-symptom">颈椎病</span>
+                </div>
+                <div id="med-1" class="detail-panel" onclick="event.stopPropagation()">
+                    <h4>📋 方剂信息</h4>
+                    <p><strong>原方</strong>：葛根汤（东汉张仲景《伤寒论》）</p>
+                    <p><strong>组成</strong>：葛根12克、麻黄9克、桂枝6克、白芍6克、炙甘草6克、生姜3-6片、大枣6-12枚</p>
+                    <p><strong>主治</strong>：风寒感冒、颈椎病（首选方）、肩周炎、落枕</p>
+                    <p><strong>症状</strong>：怕冷怕风、项背强急不舒、后背僵硬疼痛、发热恶寒、鼻塞流涕</p>
+                    <p><strong>方解</strong>：葛根为君药，解肌散寒，入膀胱经；麻黄、生姜辅助发汗；桂枝调动心阳；白芍、大枣、炙甘草益气补血。</p>
+                    <a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+            
+            <!-- 复方木尼孜其颗粒 -->
+            <div class="medicine-card" onclick="toggleDetail('med-2')">
+                <div class="medicine-name">复方木尼孜其颗粒</div>
+                <div class="medicine-effect">调节体液，清肝利胆，淡化色斑（维药）</div>
+                <div class="medicine-tags">
+                    <span class="tag tag-symptom">黄褐斑</span>
+                    <span class="tag tag-symptom">雀斑</span>
+                    <span class="tag tag-symptom">痤疮</span>
+                    <span class="tag tag-symptom">湿疹</span>
+                </div>
+                <div id="med-2" class="detail-panel" onclick="event.stopPropagation()">
+                    <h4>📋 方剂信息</h4>
+                    <p><strong>性质</strong>：维吾尔药，维药中的当家花旦</p>
+                    <p><strong>组成</strong>：菊苣子、芹菜根、菊苣根、香青兰子、黑种草子、茴香根皮、洋甘菊、甘草、香茅、罗勒子、蜀葵子、茴芹果、骆驼蓬子</p>
+                    <p><strong>主治</strong>：黄褐斑、雀斑、玫瑰糠疹、痤疮、湿疹、皮炎</p>
+                    <p><strong>原理</strong>：色斑是气血失调，体内垃圾在脸上形成的瘀滞。木尼孜其意为"成熟剂"，调节人体体液，以种子药为主，调节肝肾。</p>
+                    <a href="https://www.cnblogs.com/testzcy/p/18922556" class="source-link" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+            
+            <!-- 健脾补血颗粒 -->
+            <div class="medicine-card" onclick="toggleDetail('med-3')">
+                <div class="medicine-name">健脾补血颗粒</div>
+                <div class="medicine-effect">健脾益气，补血生血——补得进去，补得有效</div>
+                <div class="medicine-tags">
+                    <span class="tag tag-symptom">脾胃虚弱</span>
+                    <span class="tag tag-symptom">气血不足</span>
+                    <span class="tag tag-symptom">贫血</span>
+                    <span class="tag tag-symptom">面色苍白</span>
+                </div>
+                <div id="med-3" class="detail-panel" onclick="event.stopPropagation()">
+                    <h4>📋 方剂信息</h4>
+                    <p><strong>底方</strong>：四君子汤（党参、白术、茯苓、甘草）</p>
+                    <p><strong>组成</strong>：党参、茯苓、皂矾、神曲茶、黑豆（炒）、白术、陈皮、甘草</p>
+                    <p><strong>主治</strong>：脾胃虚弱、气血不足、缺铁性贫血（脾胃虚弱型）</p>
+                    <p><strong>症状</strong>：面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</p>
+                    <p><strong>特点</strong>：皂矾和黑豆直接补充铁元素（治标），健脾治本。药性平和，儿童可服用。</p>
+                    <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="source-link" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+            
+            <!-- 泻黄散 -->
+            <div class="medicine-card" onclick="toggleDetail('med-4')">
+                <div class="medicine-name">泻黄散（藿香清胃胶囊）</div>
+                <div class="medicine-effect">清泻脾胃伏火——火郁发之</div>
+                <div class="medicine-tags">
+                    <span class="tag tag-symptom">口臭</span>
+                    <span class="tag tag-symptom">口腔溃疡</span>
+                    <span class="tag tag-symptom">嘴唇干裂</span>
+                    <span class="tag tag-symptom">胃火</span>
+                </div>
+                <div id="med-4" class="detail-panel" onclick="event.stopPropagation()">
+                    <h4>📋 方剂信息</h4>
+                    <p><strong>原方</strong>：泻黄散（宋朝钱乙创立）</p>
+                    <p><strong>组成</strong>：栀子3克、石膏15克、藿香21克、防风12克、甘草9克</p>
+                    <p><strong>主治</strong>：脾胃伏火、嘴唇干裂起皮、口腔溃疡、口干口渴口臭、善饥但吃不下</p>
+                    <p><strong>方解</strong>：栀子引热自小便出；石膏清热；藿香芳香化湿；防风为风药，升散郁火；甘草调和。</p>
+                    <p><strong>特点</strong>：伏火如灰烬下的炭火，日久绵长。对付伏火最妙的法子是往外散。钱乙原给小儿用，故平和。</p>
+                    <a href="https://www.10100.com/article/27473726" class="source-link" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 按病症 -->
+        <div id="by-disease" class="tab-content">
+            
+            <!-- 感冒/风寒 -->
+            <div class="disease-card" onclick="toggleDetail('dis-1')">
+                <div class="disease-name">🤧 感冒/风寒</div>
+                <div class="disease-desc">怕冷怕风、发热恶寒、鼻塞流涕</div>
+                <div class="disease-medicines">
+                    <span class="tag tag-medicine">葛根汤颗粒</span>
+                </div>
+                <div id="dis-1" class="detail-panel" onclick="event.stopPropagation()">
+                    <div class="medicine-list-item" onclick="showMedicineDetail('葛根汤颗粒')">
+                        <div class="name">💊 葛根汤颗粒</div>
+                        <div class="effect">解肌散寒，主治风寒感冒、颈椎病、肩周炎、落枕</div>
+                    </div>
+                    <div id="detail-葛根汤颗粒" style="display:none; margin-top:1rem; padding:1rem; background:#fff; border-radius:8px;">
+                        <p><strong>原方</strong>：葛根汤（东汉张仲景《伤寒论》）</p>
+                        <p><strong>组成</strong>：葛根12克、麻黄9克、桂枝6克、白芍6克、炙甘草6克、生姜3-6片、大枣6-12枚</p>
+                        <p><strong>症状</strong>：怕冷怕风、项背强急不舒、后背僵硬疼痛</p>
+                        <a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 颈椎/肩周 -->
+            <div class="disease-card" onclick="toggleDetail('dis-2')">
+                <div class="disease-name">💪 颈椎/肩周</div>
+                <div class="disease-desc">颈椎病、肩周炎、落枕、后背僵硬</div>
+                <div class="disease-medicines">
+                    <span class="tag tag-medicine">葛根汤颗粒</span>
+                </div>
+                <div id="dis-2" class="detail-panel" onclick="event.stopPropagation()">
+                    <div class="medicine-list-item" onclick="showMedicineDetail('颈椎-葛根汤颗粒')">
+                        <div class="name">💊 葛根汤颗粒</div>
+                        <div class="effect">颈椎病首选方，甚至可以说是治疗颈椎病的首选方</div>
+                    </div>
+                    <div id="detail-颈椎-葛根汤颗粒" style="display:none; margin-top:1rem; padding:1rem; background:#fff; border-radius:8px;">
+                        <p><strong>原方</strong>：葛根汤（东汉张仲景《伤寒论》）</p>
+                        <p><strong>组成</strong>：葛根12克、麻黄9克、桂枝6克、白芍6克、炙甘草6克、生姜3-6片、大枣6-12枚</p>
+                        <p><strong>方解</strong>：葛根为君药，能入膀胱经，把膀胱经打通，调动气血津液。颈椎病主要原因是受风受寒，葛根解肌，使肌肉不再受寒邪束缚。</p>
+                        <a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 皮肤/色斑 -->
+            <div class="disease-card" onclick="toggleDetail('dis-3')">
+                <div class="disease-name">✨ 皮肤/色斑</div>
+                <div class="disease-desc">黄褐斑、雀斑、痤疮、湿疹、皮炎</div>
+                <div class="disease-medicines">
+                    <span class="tag tag-medicine">复方木尼孜其颗粒</span>
+                </div>
+                <div id="dis-3" class="detail-panel" onclick="event.stopPropagation()">
+                    <div class="medicine-list-item" onclick="showMedicineDetail('木尼孜其')">
+                        <div class="name">💊 复方木尼孜其颗粒</div>
+                        <div class="effect">调节体液，清肝利胆，淡化色斑（维药）</div>
+                    </div>
+                    <div id="detail-木尼孜其" style="display:none; margin-top:1rem; padding:1rem; background:#fff; border-radius:8px;">
+                        <p><strong>性质</strong>：维吾尔药，维药中的当家花旦</p>
+                        <p><strong>组成</strong>：菊苣子、芹菜根、菊苣根、香青兰子、黑种草子、茴香根皮、洋甘菊、甘草、香茅、罗勒子、蜀葵子、茴芹果、骆驼蓬子</p>
+                        <p><strong>原理</strong>：色斑是气血失调，体内未能及时排出的垃圾在脸上形成的瘀滞。木尼孜其意为"成熟剂"，调节人体体液。</p>
+                        <a href="https://www.cnblogs.com/testzcy/p/18922556" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 脾胃/气血 -->
+            <div class="disease-card" onclick="toggleDetail('dis-4')">
+                <div class="disease-name">🍃 脾胃/气血</div>
+                <div class="disease-desc">脾胃虚弱、气血不足、贫血、面色苍白</div>
+                <div class="disease-medicines">
+                    <span class="tag tag-medicine">健脾补血颗粒</span>
+                </div>
+                <div id="dis-4" class="detail-panel" onclick="event.stopPropagation()">
+                    <div class="medicine-list-item" onclick="showMedicineDetail('健脾补血')">
+                        <div class="name">💊 健脾补血颗粒</div>
+                        <div class="effect">健脾益气，补血生血——补得进去，补得有效</div>
+                    </div>
+                    <div id="detail-健脾补血" style="display:none; margin-top:1rem; padding:1rem; background:#fff; border-radius:8px;">
+                        <p><strong>底方</strong>：四君子汤</p>
+                        <p><strong>组成</strong>：党参、茯苓、皂矾、神曲茶、黑豆（炒）、白术、陈皮、甘草</p>
+                        <p><strong>症状</strong>：面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</p>
+                        <p><strong>特点</strong>：皂矾和黑豆直接补充铁元素，健脾治本。药性平和，儿童可服用。</p>
+                        <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 口臭/上火 -->
+            <div class="disease-card" onclick="toggleDetail('dis-5')">
+                <div class="disease-name">🔥 口臭/上火</div>
+                <div class="disease-desc">口臭、口腔溃疡、嘴唇干裂、胃火</div>
+                <div class="disease-medicines">
+                    <span class="tag tag-medicine">泻黄散（藿香清胃胶囊）</span>
+                </div>
+                <div id="dis-5" class="detail-panel" onclick="event.stopPropagation()">
+                    <div class="medicine-list-item" onclick="showMedicineDetail('泻黄散')">
+                        <div class="name">💊 泻黄散（藿香清胃胶囊）</div>
+                        <div class="effect">清泻脾胃伏火——火郁发之</div>
+                    </div>
+                    <div id="detail-泻黄散" style="display:none; margin-top:1rem; padding:1rem; background:#fff; border-radius:8px;">
+                        <p><strong>原方</strong>：泻黄散（宋朝钱乙创立）</p>
+                        <p><strong>组成</strong>：栀子3克、石膏15克、藿香21克、防风12克、甘草9克</p>
+                        <p><strong>症状</strong>：嘴唇干裂起皮、口腔溃疡、口干口渴口臭、善饥但吃不下</p>
+                        <p><strong>特点</strong>：伏火如灰烬下的炭火，对付伏火最妙的法子是往外散，配合升散之药。</p>
+                        <a href="https://www.10100.com/article/27473726" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="footer">
+            <p>内容整理自微信公众号「温暖中医」</p>
+            <p>本站仅供个人学习参考，版权归原作者</p>
+            <p>© 2026 温暖中医索引</p>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // 切换标签按钮
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 切换内容
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        function toggleDetail(id) {
+            const panel = document.getElementById(id);
+            panel.classList.toggle('active');
+        }
+        
+        function showMedicineDetail(medId) {
+            event.stopPropagation();
+            const detail = document.getElementById('detail-' + medId);
+            if (detail) {
+                detail.style.display = detail.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        function doSearch() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const cards = document.querySelectorAll('.medicine-card, .disease-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
