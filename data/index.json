@@ -1,0 +1,332 @@
+{
+  "by_symptom": {
+    "感冒/风寒": {
+      "description": "风寒感冒，怕冷怕风，发热恶寒，鼻塞流涕",
+      "medicines": [
+        {
+          "name": "葛根汤颗粒",
+          "type": "中成药",
+          "original": "葛根汤",
+          "core_effect": "解肌散寒",
+          "key_symptoms": ["怕冷怕风", "发热恶寒", "鼻塞流涕"],
+          "source": "《伤寒论》张仲景",
+          "url": "https://www.cnblogs.com/testzcy/p/18188726"
+        },
+        {
+          "name": "荆防颗粒",
+          "type": "中成药",
+          "original": "荆防败毒散",
+          "core_effect": "疏风散寒，解表祛湿",
+          "key_symptoms": ["风寒感冒", "流感", "恶寒发热", "头痛身痛", "鼻塞流涕"],
+          "source": "《摄生众妙方》",
+          "url": "https://www.cnblogs.com/testzcy/p/18667956",
+          "note": "时疫名方，流感高热可用"
+        }
+      ]
+    },
+    "颈椎/肩周": {
+      "description": "颈椎病、肩周炎、落枕，项背强急不舒",
+      "medicines": [
+        {
+          "name": "葛根汤颗粒",
+          "type": "中成药",
+          "original": "葛根汤",
+          "core_effect": "解肌散寒，疏通膀胱经",
+          "key_symptoms": ["项背强急不舒", "后背僵硬疼痛", "颈椎病", "肩周炎", "落枕"],
+          "source": "《伤寒论》张仲景",
+          "url": "https://www.cnblogs.com/testzcy/p/18188726",
+          "note": "治疗颈椎病的首选方"
+        }
+      ]
+    },
+    "皮肤/色斑": {
+      "description": "黄褐斑、雀斑、面部色斑，气血失调",
+      "medicines": [
+        {
+          "name": "复方木尼孜其颗粒",
+          "type": "中成药（维药）",
+          "original": null,
+          "core_effect": "调节体液，清肝利胆，淡化色斑",
+          "key_symptoms": ["面部色斑", "黄褐斑", "雀斑", "气血失调", "肝郁"],
+          "source": "维吾尔医药",
+          "url": "https://www.cnblogs.com/testzcy/p/18922556",
+          "note": "维药中的当家花旦，以种子药为主调节肝肾"
+        }
+      ]
+    },
+    "皮肤/痤疮": {
+      "description": "痤疮、玫瑰糠疹、湿疹、皮炎",
+      "medicines": [
+        {
+          "name": "复方木尼孜其颗粒",
+          "type": "中成药（维药）",
+          "original": null,
+          "core_effect": "调节体液，疏风解毒",
+          "key_symptoms": ["痤疮", "玫瑰糠疹", "湿疹", "皮炎"],
+          "source": "维吾尔医药",
+          "url": "https://www.cnblogs.com/testzcy/p/18922556"
+        }
+      ]
+    },
+    "皮肤/湿疹": {
+      "description": "干性湿疹，皮肤干燥，脱屑，干裂",
+      "medicines": [
+        {
+          "name": "紫草软膏",
+          "type": "中成药（外用）",
+          "original": null,
+          "core_effect": "养血润燥，祛风止痒",
+          "key_symptoms": ["皮肤干燥", "脱屑", "干裂", "痒"],
+          "source": "现代中成药",
+          "url": "https://www.cnblogs.com/testzcy/p/18270539",
+          "note": "专治干性湿疹"
+        }
+      ]
+    },
+    "脾胃/气血": {
+      "description": "脾胃虚弱，气血不足，面色萎黄",
+      "medicines": [
+        {
+          "name": "健脾补血颗粒",
+          "type": "中成药",
+          "original": "四君子汤",
+          "core_effect": "健脾益气，补血生血",
+          "key_symptoms": ["面色萎黄或苍白", "神疲乏力", "少气懒言", "食欲不振", "食后腹胀"],
+          "source": "四君子汤加减",
+          "url": "https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html",
+          "note": "补得进去，补得有效，儿童也可服用"
+        }
+      ]
+    },
+    "贫血/缺铁": {
+      "description": "缺铁性贫血（脾胃虚弱型）",
+      "medicines": [
+        {
+          "name": "健脾补血颗粒",
+          "type": "中成药",
+          "original": "四君子汤",
+          "core_effect": "健脾益气，补血生血",
+          "key_symptoms": ["缺铁性贫血", "脾胃虚弱", "面色萎黄"],
+          "source": "四君子汤加减",
+          "url": "https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html",
+          "note": "含皂矾、黑豆，直接补充铁元素"
+        }
+      ]
+    },
+    "脾胃/上火": {
+      "description": "脾胃伏火，口臭，口腔溃疡，嘴唇干裂",
+      "medicines": [
+        {
+          "name": "泻黄散（藿香清胃胶囊）",
+          "type": "中成药",
+          "original": "泻黄散",
+          "core_effect": "清泻脾胃伏火，火郁发之",
+          "key_symptoms": ["口臭", "口腔溃疡", "嘴唇干裂起皮", "口干口渴", "善饥但吃不下"],
+          "source": "《小儿药证直诀》钱乙",
+          "url": "https://www.10100.com/article/27473726",
+          "note": "宋朝钱乙创立，平和安全，小儿可用"
+        }
+      ]
+    },
+    "脾胃/虚寒": {
+      "description": "脾胃虚寒，吃凉拉肚子，大便稀溏",
+      "medicines": [
+        {
+          "name": "附子理中丸",
+          "type": "中成药",
+          "original": "理中汤",
+          "core_effect": "温补脾肾阳气",
+          "key_symptoms": ["吃凉拉肚子", "舌质淡舌苔白", "大便稀溏", "早上打喷嚏"],
+          "source": "《伤寒论》",
+          "url": "https://www.cnblogs.com/testzcy/p/18084427",
+          "note": "脾胃虚寒型鼻炎也可用"
+        }
+      ]
+    },
+    "口腔/溃疡": {
+      "description": "口腔溃疡，反复发作",
+      "medicines": [
+        {
+          "name": "泻黄散（藿香清胃胶囊）",
+          "type": "中成药",
+          "original": "泻黄散",
+          "core_effect": "清泻脾胃伏火",
+          "key_symptoms": ["口腔溃疡", "口臭", "脾胃伏火"],
+          "source": "《小儿药证直诀》钱乙",
+          "url": "https://www.10100.com/article/27473726"
+        }
+      ]
+    },
+    "咳嗽/寒咳": {
+      "description": "外寒里饮，咳嗽痰多，遇冷加重，痰白清稀",
+      "medicines": [
+        {
+          "name": "小青龙颗粒",
+          "type": "中成药",
+          "original": "小青龙汤",
+          "core_effect": "外散风寒，内化痰饮",
+          "key_symptoms": ["外寒里饮", "咳嗽痰多", "遇冷咳嗽", "痰白清稀", "恶寒发热"],
+          "source": "《伤寒论》张仲景",
+          "url": "https://www.cnblogs.com/testzcy/p/18678614",
+          "note": "中医十大名方之一，寒咳首选"
+        }
+      ]
+    },
+    "鼻炎/虚寒": {
+      "description": "慢性鼻炎，过敏性鼻炎，脾胃虚寒型",
+      "medicines": [
+        {
+          "name": "附子理中丸",
+          "type": "中成药",
+          "original": "理中汤",
+          "core_effect": "温补脾肾阳气，治脾胃虚寒型鼻炎",
+          "key_symptoms": ["流清鼻涕", "舌质淡舌苔白", "大便稀溏", "吃凉拉肚子", "早上打喷嚏"],
+          "source": "《伤寒论》",
+          "url": "https://www.cnblogs.com/testzcy/p/18084427"
+        }
+      ]
+    },
+    "鼻炎/风热": {
+      "description": "急慢性鼻炎，过敏性鼻炎，鼻窦炎，流黄鼻涕",
+      "medicines": [
+        {
+          "name": "香菊胶囊",
+          "type": "中成药",
+          "original": null,
+          "core_effect": "清热解毒，祛风通窍",
+          "key_symptoms": ["鼻塞", "流黄鼻涕", "白黏涕", "头昏头痛"],
+          "source": "现代中成药",
+          "url": "https://www.cnblogs.com/testzcy/p/18623717",
+          "note": "治风热型鼻炎"
+        }
+      ]
+    },
+    "眼睛/肝血": {
+      "description": "肝血不足，眼睛干涩，视物模糊，近视",
+      "medicines": [
+        {
+          "name": "益肝明目口服液",
+          "type": "中成药",
+          "original": null,
+          "core_effect": "滋补肝血，明目养眼",
+          "key_symptoms": ["眼睛干涩", "视物模糊", "用眼过度", "眼疲劳"],
+          "source": "现代中成药",
+          "url": "https://www.cnblogs.com/testzcy/p/18678615",
+          "note": "防近视，适合用眼过度者"
+        }
+      ]
+    },
+    "减肥/利水": {
+      "description": "水湿型肥胖，湿气重，四肢乏力沉重",
+      "medicines": [
+        {
+          "name": "轻身消胖丸",
+          "type": "中成药",
+          "original": null,
+          "core_effect": "益气健脾，利水消肿",
+          "key_symptoms": ["舌苔腻", "舌头水滑", "四肢乏力沉重", "水胖"],
+          "source": "现代中成药",
+          "url": "https://www.cnblogs.com/testzcy/p/18641631",
+          "note": "专治水胖型肥胖"
+        }
+      ]
+    }
+  },
+  "by_medicine": {
+    "葛根汤颗粒": {
+      "original": "葛根汤",
+      "source": "《伤寒论》张仲景",
+      "category": ["感冒/风寒", "颈椎/肩周"],
+      "core_effect": "解肌散寒",
+      "indications": ["风寒感冒", "颈椎病", "肩周炎", "落枕"],
+      "url": "https://www.cnblogs.com/testzcy/p/18188726"
+    },
+    "复方木尼孜其颗粒": {
+      "original": null,
+      "source": "维吾尔医药",
+      "category": ["皮肤/色斑", "皮肤/痤疮"],
+      "core_effect": "调节体液，清肝利胆，淡化色斑",
+      "indications": ["黄褐斑", "雀斑", "玫瑰糠疹", "痤疮", "湿疹", "皮炎"],
+      "url": "https://www.cnblogs.com/testzcy/p/18922556"
+    },
+    "健脾补血颗粒": {
+      "original": "四君子汤",
+      "source": "四君子汤加减",
+      "category": ["脾胃/气血", "贫血/缺铁"],
+      "core_effect": "健脾益气，补血生血",
+      "indications": ["脾胃虚弱", "气血不足", "缺铁性贫血"],
+      "url": "https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html"
+    },
+    "泻黄散（藿香清胃胶囊）": {
+      "original": "泻黄散",
+      "source": "《小儿药证直诀》钱乙",
+      "category": ["脾胃/上火", "口腔/溃疡"],
+      "core_effect": "清泻脾胃伏火",
+      "indications": ["脾胃伏火", "口臭", "口腔溃疡", "口干口渴"],
+      "url": "https://www.10100.com/article/27473726"
+    },
+    "荆防颗粒": {
+      "original": "荆防败毒散",
+      "source": "《摄生众妙方》",
+      "category": ["感冒/风寒"],
+      "core_effect": "疏风散寒，解表祛湿",
+      "indications": ["风寒感冒", "流感", "恶寒发热", "头痛身痛", "鼻塞流涕"],
+      "url": "https://www.cnblogs.com/testzcy/p/18667956"
+    },
+    "小青龙颗粒": {
+      "original": "小青龙汤",
+      "source": "《伤寒论》张仲景",
+      "category": ["咳嗽/寒咳"],
+      "core_effect": "外散风寒，内化痰饮",
+      "indications": ["外寒里饮", "咳嗽痰多", "遇冷咳嗽", "痰白清稀"],
+      "url": "https://www.cnblogs.com/testzcy/p/18678614"
+    },
+    "轻身消胖丸": {
+      "original": null,
+      "source": "现代中成药",
+      "category": ["减肥/利水"],
+      "core_effect": "益气健脾，利水消肿",
+      "indications": ["水湿型肥胖", "脾胃虚弱", "湿气重"],
+      "url": "https://www.cnblogs.com/testzcy/p/18641631"
+    },
+    "附子理中丸": {
+      "original": "理中汤",
+      "source": "《伤寒论》",
+      "category": ["脾胃/虚寒", "鼻炎/虚寒"],
+      "core_effect": "温补脾肾阳气",
+      "indications": ["慢性鼻炎", "过敏性鼻炎", "脾胃虚寒"],
+      "url": "https://www.cnblogs.com/testzcy/p/18084427"
+    },
+    "益肝明目口服液": {
+      "original": null,
+      "source": "现代中成药",
+      "category": ["眼睛/肝血"],
+      "core_effect": "滋补肝血，明目养眼",
+      "indications": ["肝血不足", "眼睛干涩", "近视"],
+      "url": "https://www.cnblogs.com/testzcy/p/18678615"
+    },
+    "香菊胶囊": {
+      "original": null,
+      "source": "现代中成药",
+      "category": ["鼻炎/风热"],
+      "core_effect": "清热解毒，祛风通窍",
+      "indications": ["急慢性鼻炎", "过敏性鼻炎", "鼻窦炎"],
+      "url": "https://www.cnblogs.com/testzcy/p/18623717"
+    },
+    "紫草软膏": {
+      "original": null,
+      "source": "现代中成药",
+      "category": ["皮肤/湿疹"],
+      "core_effect": "养血润燥，祛风止痒",
+      "indications": ["干性湿疹", "皮肤干燥", "脱屑"],
+      "url": "https://www.cnblogs.com/testzcy/p/18270539"
+    }
+  },
+  "meta": {
+    "total_articles": 11,
+    "total_medicines": 11,
+    "total_symptoms": 14,
+    "last_updated": "2026-02-27",
+    "version": "2.2"
+  }
+}

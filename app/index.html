@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温暖中医 · 药方索引</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.9; font-size: 0.9rem; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .search-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-box input:focus { border-color: #8B4513; }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #8B4513;
+            color: white;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 1.1rem;
+            color: #8B4513;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0e6dc;
+        }
+        .item {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #fafafa;
+            transition: all 0.2s;
+        }
+        .item:hover { background: #f0e6dc; }
+        .item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .tag-medicine { background: #e8f5e9; color: #2e7d32; }
+        .tag-disease { background: #fff3e0; color: #ef6c00; }
+        .item-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .item-link:hover { text-decoration: underline; }
+        .hidden { display: none; }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8B4513">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 温暖中医</h1>
+        <p>药方索引 · 对症检索</p>
+    </div>
+    
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="search" placeholder="搜索药名或症状..." onkeyup="doSearch()">
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('disease')">按病症</button>
+            <button class="tab" onclick="showTab('medicine')">按药名</button>
+            <button class="tab" onclick="showTab('all')">全部文章</button>
+        </div>
+        
+        <div id="disease-section" class="tab-content">
+            <div class="section">
+                <div class="section-title">🩺 按病症查找</div>
+
+                <div class="item" data-search="感冒咳嗽">
+                    <div class="item-title">感冒咳嗽</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">中成药叫葛根汤</span><span class="tag tag-medicine">到体表这个地方</span><span class="tag tag-medicine">子叫葛根汤</span><span class="tag tag-medicine">个孩子最快的方</span><span class="tag tag-medicine">以四君子汤</span><span class="tag tag-medicine">健脾补血颗粒</span>
+                    </div>
+                </div>
+
+                <div class="item" data-search="结节肿块">
+                    <div class="item-title">结节肿块</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+                <div class="item" data-search="脾胃消化">
+                    <div class="item-title">脾胃消化</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">个孩子最快的方</span><span class="tag tag-medicine">以四君子汤</span><span class="tag tag-medicine">健脾补血颗粒</span><span class="tag tag-medicine">又不失严谨的方</span><span class="tag tag-medicine">发散</span>
+                    </div>
+                </div>
+
+                <div class="item" data-search="失眠焦虑">
+                    <div class="item-title">失眠焦虑</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">医药理论来组方</span><span class="tag tag-medicine">因为会散</span><span class="tag tag-medicine">复方木尼孜其颗粒</span>
+                    </div>
+                </div>
+
+                <div class="item" data-search="皮肤美容">
+                    <div class="item-title">皮肤美容</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+                <div class="item" data-search="颈椎肩周">
+                    <div class="item-title">颈椎肩周</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">中成药叫葛根汤</span><span class="tag tag-medicine">到体表这个地方</span><span class="tag tag-medicine">子叫葛根汤</span>
+                    </div>
+                </div>
+
+                <div class="item" data-search="妇科问题">
+                    <div class="item-title">妇科问题</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+                <div class="item" data-search="心脑血管">
+                    <div class="item-title">心脑血管</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+                <div class="item" data-search="肝胆问题">
+                    <div class="item-title">肝胆问题</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+                <div class="item" data-search="肾虚腰酸">
+                    <div class="item-title">肾虚腰酸</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">医药理论来组方</span><span class="tag tag-medicine">因为会散</span><span class="tag tag-medicine">复方木尼孜其颗粒</span><span class="tag tag-medicine">又不失严谨的方</span><span class="tag tag-medicine">发散</span>
+                    </div>
+                </div>
+
+                <div class="item" data-search="风湿关节">
+                    <div class="item-title">风湿关节</div>
+                    <div class="item-tags">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="medicine-section" class="tab-content hidden">
+            <div class="section">
+                <div class="section-title">💊 按药名查找</div>
+
+                <div class="item" data-search="葛根汤 风寒感冒 颈椎病 肩周炎 落枕">
+                    <div class="item-title">葛根汤</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">风寒感冒</span><span class="tag tag-disease">颈椎病</span><span class="tag tag-disease">肩周炎</span><span class="tag tag-disease">落枕</span>
+                    </div>
+<a href="https://www.cnblogs.com/testzcy/p/18188726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="葛根汤颗粒 风寒感冒 颈椎病 肩周炎 落枕">
+                    <div class="item-title">葛根汤颗粒</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">风寒感冒</span><span class="tag tag-disease">颈椎病</span><span class="tag tag-disease">肩周炎</span><span class="tag tag-disease">落枕</span>
+                    </div>
+<a href="https://www.cnblogs.com/testzcy/p/18188726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="复方木尼孜其颗粒 黄褐斑 雀斑 色斑 失眠">
+                    <div class="item-title">复方木尼孜其颗粒</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">黄褐斑</span><span class="tag tag-disease">雀斑</span><span class="tag tag-disease">色斑</span><span class="tag tag-disease">失眠</span>
+                    </div>
+<a href="https://www.cnblogs.com/testzcy/p/18922556" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="四君子汤 脾胃虚弱 气血不足">
+                    <div class="item-title">四君子汤</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">脾胃虚弱</span><span class="tag tag-disease">气血不足</span>
+                    </div>
+<a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="健脾补血颗粒 脾胃虚弱 贫血 气血不足">
+                    <div class="item-title">健脾补血颗粒</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">脾胃虚弱</span><span class="tag tag-disease">贫血</span><span class="tag tag-disease">气血不足</span>
+                    </div>
+<a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="藿香清胃胶囊 口臭 胃火 消化不良">
+                    <div class="item-title">藿香清胃胶囊</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">口臭</span><span class="tag tag-disease">胃火</span><span class="tag tag-disease">消化不良</span>
+                    </div>
+<a href="https://www.10100.com/article/27473726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="泻黄散 脾胃伏火 口臭 口腔溃疡">
+                    <div class="item-title">泻黄散</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">脾胃伏火</span><span class="tag tag-disease">口臭</span><span class="tag tag-disease">口腔溃疡</span>
+                    </div>
+<a href="https://www.10100.com/article/27473726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="栀子豉汤 虚烦 失眠 胸闷">
+                    <div class="item-title">栀子豉汤</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">虚烦</span><span class="tag tag-disease">失眠</span><span class="tag tag-disease">胸闷</span>
+                    </div>
+<a href="https://www.10100.com/article/27473726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="龙胆泻肝汤 肝火旺 口苦 头晕">
+                    <div class="item-title">龙胆泻肝汤</div>
+                    <div class="item-tags">
+<span class="tag tag-disease">肝火旺</span><span class="tag tag-disease">口苦</span><span class="tag tag-disease">头晕</span>
+                    </div>
+<a href="https://www.10100.com/article/27473726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="all-section" class="tab-content hidden">
+            <div class="section">
+                <div class="section-title">📚 全部文章</div>
+
+                <div class="item" data-search="一个中成药，把后背的寒气排出去，寒气没了，整个人都舒服了 中成药叫葛根汤 到体表这个地方 子叫葛根汤 张仲景创立此方 张仲景有一个方 成中成药叫葛根汤颗粒 有一些专门的方 比如葛根汤 比如葛根汤专门散 生姜辅助葛根发汗散 的中成药叫葛根汤颗粒 能发散 葛根汤 这样多方 通过这样的方 颈椎病的首选方 感冒 气血 颈椎">
+                    <div class="item-title">一个中成药，把后背的寒气排出去，寒气没了，整个人都舒服了</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">中成药叫葛根汤</span><span class="tag tag-medicine">到体表这个地方</span><span class="tag tag-medicine">子叫葛根汤</span><span class="tag tag-medicine">张仲景创立此方</span><span class="tag tag-medicine">张仲景有一个方</span><span class="tag tag-disease">感冒</span><span class="tag tag-disease">气血</span><span class="tag tag-disease">颈椎</span>
+                    </div>
+                    <a href="https://www.cnblogs.com/testzcy/p/18188726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="这个中成药堪称祛斑界的扛把子，每天3次，斑不见了，气色一天比一天好 转载 医药理论来组方 因为会散 复方木尼孜其颗粒 所以复方 所以复方木尼孜其颗粒 调节作用的复方 失眠 气血 皮肤 肝胆 肾">
+                    <div class="item-title">这个中成药堪称祛斑界的扛把子，每天3次，斑不见了，气色一天比一天好 转载</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">医药理论来组方</span><span class="tag tag-medicine">因为会散</span><span class="tag tag-medicine">复方木尼孜其颗粒</span><span class="tag tag-medicine">所以复方</span><span class="tag tag-medicine">所以复方木尼孜其颗粒</span><span class="tag tag-disease">失眠</span><span class="tag tag-disease">气血</span><span class="tag tag-disease">皮肤</span><span class="tag tag-disease">肝胆</span><span class="tag tag-disease">肾</span>
+                    </div>
+                    <a href="https://www.cnblogs.com/testzcy/p/18922556" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="十几块钱一盒的中成药，很便宜但很补脾胃，脾有劲，气血涌出来|补血|党参|甘草|健脾 个孩子最快的方 以四君子汤 健脾补血颗粒 四君子汤 多人服药方 央视女外卖员短片 如有图片 年才知对方 是专门培土的方 是我们身体里的那片 此前辟谣照片 的名字叫健脾补血颗粒 纪录片 联系方 费下载网易官方 心脑血管 感冒 气血 脾胃">
+                    <div class="item-title">十几块钱一盒的中成药，很便宜但很补脾胃，脾有劲，气血涌出来|补血|党参|甘草|健脾</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">个孩子最快的方</span><span class="tag tag-medicine">以四君子汤</span><span class="tag tag-medicine">健脾补血颗粒</span><span class="tag tag-medicine">四君子汤</span><span class="tag tag-medicine">多人服药方</span><span class="tag tag-disease">心脑血管</span><span class="tag tag-disease">感冒</span><span class="tag tag-disease">气血</span><span class="tag tag-disease">脾胃</span>
+                    </div>
+                    <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+                <div class="item" data-search="有一味不起眼的中药，能清上中下三焦之火 中成药是藿香清胃胶囊 又不失严谨的方 发散 因为服用更方 大概是从藿香正气散 把蓄积的热散 最妙的法子是往外散 有代表性的是泻黄散 栀子豉汤 泻黄散 点击上方 用防风升散 石膏也有一定的发散 脾胃伏火用泻黄散 虽然是清热的方 这个方 适合用此方 郁火得以发散 配合升散 钱乙创立此方 龙胆泻肝汤 肝胆 肾 脾胃">
+                    <div class="item-title">有一味不起眼的中药，能清上中下三焦之火</div>
+                    <div class="item-tags">
+<span class="tag tag-medicine">中成药是藿香清胃胶囊</span><span class="tag tag-medicine">又不失严谨的方</span><span class="tag tag-medicine">发散</span><span class="tag tag-medicine">因为服用更方</span><span class="tag tag-medicine">大概是从藿香正气散</span><span class="tag tag-disease">肝胆</span><span class="tag tag-disease">肾</span><span class="tag tag-disease">脾胃</span>
+                    </div>
+                    <a href="https://www.10100.com/article/27473726" class="item-link" target="_blank">查看原文 →</a>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>数据来源：微信公众号「温暖中医」</p>
+            <p>本站仅为索引整理，版权归原作者</p>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tab + '-section').classList.remove('hidden');
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function doSearch() {
+            const query = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.item').forEach(item => {
+                const text = item.getAttribute('data-search') || '';
+                if (text.toLowerCase().includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
