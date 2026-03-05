@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温暖中医 · 方剂索引</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f8f6f3;
+            color: #333;
+            line-height: 1.8;
+        }
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .header .source {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+        .category-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .category-header {
+            background: #faf8f5;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #8B4513;
+        }
+        .medicine-item { border-bottom: 1px solid #f5f2ed; }
+        .medicine-header {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .medicine-name { font-size: 1.15rem; font-weight: 600; }
+        .medicine-effect { font-size: 0.9rem; color: #666; margin-top: 0.3rem; }
+        .medicine-detail {
+            display: none;
+            padding: 0 1.5rem 1.5rem;
+            background: #fdfcfa;
+        }
+        .detail-label { font-weight: 600; color: #8B4513; margin: 1rem 0 0.3rem; }
+        .formula-item, .indication-item {
+            display: inline-block;
+            background: #f0ebe4;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        .indication-item { background: #e8f5e9; color: #2e7d32; }
+        .key-points {
+            background: #fff8e1;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #ffc107;
+        }
+        .key-points li { margin-left: 1.2rem; margin-bottom: 0.3rem; }
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background: #8B4513;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 温暖中医</h1>
+        <div class="source">内容来源：微信公众号「温暖中医」· 仅供学习参考</div>
+    </div>
+    
+    <div class="container">
+        <!-- 感冒/颈椎 -->
+        <div class="category-section">
+            <div class="category-header">🤧 感冒 / 颈椎</div>
+            <div class="medicine-item">
+                <div class="medicine-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display=='block'?'none':'block'">
+                    <div>
+                        <div class="medicine-name">葛根汤颗粒</div>
+                        <div class="medicine-effect">解肌散寒、发汗通络 — 把后背寒气排出去</div>
+                    </div>
+                    <span>▼</span>
+                </div>
+                <div class="medicine-detail">
+                    <div class="detail-label">📜 方剂来源</div>
+                    <div>医圣张仲景《伤寒论》原方</div>
+                    
+                    <div class="detail-label">🌿 方剂组成</div>
+                    <div>
+                        <span class="formula-item">葛根12克（君药）</span>
+                        <span class="formula-item">麻黄9克</span>
+                        <span class="formula-item">桂枝6克</span>
+                        <span class="formula-item">白芍6克</span>
+                        <span class="formula-item">炙甘草6克</span>
+                        <span class="formula-item">生姜3-6片</span>
+                        <span class="formula-item">大枣6-12枚</span>
+                    </div>
+                    
+                    <div class="detail-label">🎯 主治病症</div>
+                    <div>
+                        <span class="indication-item">风寒感冒</span>
+                        <span class="indication-item">颈椎病（首选方）</span>
+                        <span class="indication-item">肩周炎</span>
+                        <span class="indication-item">落枕</span>
+                    </div>
+                    
+                    <div class="detail-label">🔍 症状关键词</div>
+                    <div>怕冷怕风、项背强急不舒、后背僵硬疼痛</div>
+                    
+                    <div class="detail-label">💡 方解要点</div>
+                    <ul class="key-points">
+                        <li>葛根为君药，解肌发散，入膀胱经，打通经络</li>
+                        <li>麻黄、生姜辅助发汗散寒</li>
+                        <li>桂枝调动心阳到体表驱邪</li>
+                        <li>白芍、大枣、炙甘草益气补血生津</li>
+                    </ul>
+                    
+                    <a href="https://www.cnblogs.com/testzcy/p/18188726" class="read-more" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 脾胃/气血 -->
+        <div class="category-section">
+            <div class="category-header">🍚 脾胃 / 气血</div>
+            <div class="medicine-item">
+                <div class="medicine-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display=='block'?'none':'block'">
+                    <div>
+                        <div class="medicine-name">健脾补血颗粒</div>
+                        <div class="medicine-effect">健脾益气、补血生血 — 让身体自己生出气血</div>
+                    </div>
+                    <span>▼</span>
+                </div>
+                <div class="medicine-detail">
+                    <div class="detail-label">📜 方剂来源</div>
+                    <div>以四君子汤为底（党参、白术、茯苓、甘草）</div>
+                    
+                    <div class="detail-label">🌿 方剂组成</div>
+                    <div>
+                        <span class="formula-item">党参</span>
+                        <span class="formula-item">茯苓</span>
+                        <span class="formula-item">皂矾</span>
+                        <span class="formula-item">神曲茶</span>
+                        <span class="formula-item">黑豆(炒)</span>
+                        <span class="formula-item">白术</span>
+                        <span class="formula-item">陈皮</span>
+                        <span class="formula-item">甘草</span>
+                    </div>
+                    
+                    <div class="detail-label">🎯 主治病症</div>
+                    <div>
+                        <span class="indication-item">脾胃虚弱</span>
+                        <span class="indication-item">气血不足</span>
+                        <span class="indication-item">缺铁性贫血</span>
+                    </div>
+                    
+                    <div class="detail-label">🔍 症状关键词</div>
+                    <div>面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</div>
+                    
+                    <div class="detail-label">💡 方解要点</div>
+                    <ul class="key-points">
+                        <li>党参、甘草补脾气，给脾胃提供动力</li>
+                        <li>白术、茯苓健脾祛湿，修复脾胃功能</li>
+                        <li>皂矾、黑豆富含铁元素，直接补充造血原料</li>
+                        <li>陈皮、神曲茶健脾行气，防止壅滞</li>
+                        <li>儿童也可服用，药性平和</li>
+                    </ul>
+                    
+                    <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="read-more" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 脾胃/上火 -->
+        <div class="category-section">
+            <div class="category-header">🔥 脾胃 / 上火</div>
+            <div class="medicine-item">
+                <div class="medicine-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display=='block'?'none':'block'">
+                    <div>
+                        <div class="medicine-name">泻黄散</div>
+                        <div class="medicine-effect">清泻脾胃伏火 — 火郁发之</div>
+                    </div>
+                    <span>▼</span>
+                </div>
+                <div class="medicine-detail">
+                    <div class="detail-label">📜 方剂来源</div>
+                    <div>宋朝儿科医家钱乙创立，最初给小儿用</div>
+                    
+                    <div class="detail-label">🌿 方剂组成</div>
+                    <div>
+                        <span class="formula-item">栀子3克</span>
+                        <span class="formula-item">石膏15克</span>
+                        <span class="formula-item">藿香21克</span>
+                        <span class="formula-item">防风12克</span>
+                        <span class="formula-item">甘草9克</span>
+                    </div>
+                    
+                    <div class="detail-label">🎯 主治病症</div>
+                    <div>
+                        <span class="indication-item">脾胃伏火</span>
+                        <span class="indication-item">口臭</span>
+                        <span class="indication-item">口腔溃疡</span>
+                    </div>
+                    
+                    <div class="detail-label">🔍 症状关键词</div>
+                    <div>嘴唇干裂起皮、口干口渴口臭、善饥但吃不下（容易饿但吃不下）</div>
+                    
+                    <div class="detail-label">💡 方解要点</div>
+                    <ul class="key-points">
+                        <li>栀子清热，引热自小便而出</li>
+                        <li>石膏清热，防风升散郁火</li>
+                        <li>藿香芳香化湿，使气机通畅，郁火得以发散</li>
+                        <li>甘草清热解毒，调和诸药</li>
+                        <li>平和方子，践行"火郁发之"理念</li>
+                    </ul>
+                    
+                    <div class="detail-label">💊 对应中成药</div>
+                    <div>藿香清胃胶囊</div>
+                    
+                    <a href="https://www.10100.com/article/27473726" class="read-more" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 皮肤/美容 -->
+        <div class="category-section">
+            <div class="category-header">✨ 皮肤 / 美容</div>
+            <div class="medicine-item">
+                <div class="medicine-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display=='block'?'none':'block'">
+                    <div>
+                        <div class="medicine-name">复方木尼孜其颗粒</div>
+                        <div class="medicine-effect">调节体液、清肝利胆 — 淡化色斑</div>
+                    </div>
+                    <span>▼</span>
+                </div>
+                <div class="medicine-detail">
+                    <div class="detail-label">📜 方剂来源</div>
+                    <div>维吾尔药方，维药中的当家花旦</div>
+                    
+                    <div class="detail-label">🌿 方剂组成</div>
+                    <div>
+                        <span class="formula-item">菊苣子</span>
+                        <span class="formula-item">芹菜根</span>
+                        <span class="formula-item">菊苣根</span>
+                        <span class="formula-item">香青兰子</span>
+                        <span class="formula-item">黑种草子</span>
+                        <span class="formula-item">茴香根皮</span>
+                        <span class="formula-item">洋甘菊</span>
+                        <span class="formula-item">甘草</span>
+                        <span class="formula-item">香茅</span>
+                        <span class="formula-item">罗勒子</span>
+                        <span class="formula-item">蜀葵子</span>
+                        <span class="formula-item">茴芹果</span>
+                        <span class="formula-item">骆驼蓬子</span>
+                    </div>
+                    
+                    <div class="detail-label">🎯 主治病症</div>
+                    <div>
+                        <span class="indication-item">黄褐斑</span>
+                        <span class="indication-item">雀斑</span>
+                        <span class="indication-item">玫瑰糠疹</span>
+                        <span class="indication-item">痤疮</span>
+                        <span class="indication-item">湿疹</span>
+                        <span class="indication-item">皮炎</span>
+                    </div>
+                    
+                    <div class="detail-label">🔍 症状关键词</div>
+                    <div>面部色斑、气血失调、皮肤瘀滞</div>
+                    
+                    <div class="detail-label">💡 方解要点</div>
+                    <ul class="key-points">
+                        <li>维药成熟剂，调节四大体液</li>
+                        <li>菊苣子和菊苣根清肝利胆，养护肝脏</li>
+                        <li>骆驼蓬子解郁，缓解紧张焦虑</li>
+                        <li>香茅、茴香根皮、罗勒子行气活血</li>
+                        <li>洋甘菊滋肾益肝，舒缓皮肤</li>
+                        <li>以种子药为主，调节肝肾</li>
+                    </ul>
+                    
+                    <a href="https://www.cnblogs.com/testzcy/p/18922556" class="read-more" target="_blank">查看原文 →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>本站为温暖中医公众号文章索引，版权归原作者</p>
+        <p>仅供学习参考，用药请咨询专业医师</p>
+    </div>
+</body>
+</html>
