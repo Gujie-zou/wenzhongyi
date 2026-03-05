@@ -19,263 +19,273 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .tab.active { background: #8B4513; color: white; font-weight: 500; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
-.symptom-card { background: white; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.06); cursor: pointer; transition: all 0.3s; }
-.symptom-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15); }
-.symptom-name { font-size: 1.3rem; font-weight: 600; color: #8B4513; margin-bottom: 0.5rem; }
-.symptom-desc { color: #666; font-size: 0.95rem; margin-bottom: 0.8rem; }
-.medicine-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.medicine-card, .disease-card { background: white; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.06); cursor: pointer; transition: all 0.3s; }
+.medicine-card:hover, .disease-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15); }
+.medicine-name, .disease-name { font-size: 1.3rem; font-weight: 600; color: #8B4513; margin-bottom: 0.5rem; }
+.medicine-effect, .disease-desc { color: #666; font-size: 0.95rem; margin-bottom: 0.8rem; }
+.medicine-tags, .disease-medicines { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag { padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; }
+.tag-symptom { background: #fff3e0; color: #e65100; }
 .tag-medicine { background: #e8f5e9; color: #2e7d32; }
 .detail-panel { display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed #e0d5c8; }
 .detail-panel.active { display: block; }
-.medicine-item { background: #faf8f5; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; border-left: 3px solid #d4c4b0; }
-.medicine-item .name { font-weight: 600; color: #8B4513; margin-bottom: 0.3rem; }
-.medicine-item .effect { font-size: 0.9rem; color: #666; margin-bottom: 0.5rem; }
-.medicine-item .symptoms { font-size: 0.85rem; color: #888; }
-.source-link { display: inline-block; background: #8B4513; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; margin-top: 0.5rem; }
+.detail-panel h4 { color: #8B4513; margin: 1rem 0 0.5rem; font-size: 1rem; }
+.detail-panel p { color: #555; font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.8; }
+.source-link { display: inline-block; background: #8B4513; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin-top: 0.5rem; }
+.medicine-list-item { background: #faf8f5; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; cursor: pointer; border-left: 3px solid #d4c4b0; transition: all 0.2s; }
+.medicine-list-item:hover { background: #f5f0e8; border-left-color: #8B4513; }
+.medicine-list-item .name { font-weight: 600; color: #8B4513; margin-bottom: 0.3rem; }
+.medicine-list-item .effect { font-size: 0.9rem; color: #666; }
 .footer { text-align: center; padding: 3rem 2rem; color: #999; font-size: 0.85rem; }
-.stats { background: white; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; text-align: center; color: #666; font-size: 0.9rem; }
-.stats span { margin: 0 10px; }
-.stats strong { color: #8B4513; }
 </style>
 </head>
 <body>
 <div class="header"><h1>🏥 温暖中医</h1><p>药方索引 · 对症检索 · 精读整理</p></div>
 <div class="source-note"><strong>📚 内容来源</strong>：本网站所有内容均整理自微信公众号「温暖中医」，仅供个人学习参考。版权归原作者及原公众号所有。</div>
 <div class="container">
-<div class="stats">
-<span>📊 共 <strong>4</strong> 篇精读</span>
-<span>💊 <strong>4</strong> 种方剂</span>
-<span>🩺 <strong>8</strong> 个症状分类</span>
-</div>
-<div class="search-box"><input type="text" id="search" placeholder="搜索症状、病症或药名..." onkeyup="doSearch()"></div>
+<div class="search-box"><input type="text" id="search" placeholder="搜索药名、症状或病症..." onkeyup="doSearch()"></div>
 <div class="tabs">
-<button class="tab active" onclick="switchTab('by-symptom')">🩺 按症状</button>
-<button class="tab" onclick="switchTab('by-medicine')">💊 按方剂</button>
+<button class="tab active" onclick="switchTab('by-medicine')">💊 按方剂(</span>11)</button>
+<button class="tab" onclick="switchTab('by-disease')">🩺 按病症(11)</button>
 </div>
-
-<div id="by-symptom" class="tab-content active">
-<!-- 感冒/风寒 -->
-<div class="symptom-card" onclick="toggleDetail('sym-1')">
-<div class="symptom-name">感冒/风寒</div>
-<div class="symptom-desc">风寒感冒，怕冷怕风，发热恶寒，鼻塞流涕</div>
-<div class="medicine-tags"><span class="tag tag-medicine">葛根汤颗粒</span></div>
-<div id="sym-1" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 葛根汤颗粒</div>
-<div class="effect">解肌散寒，主治风寒感冒</div>
-<div class="symptoms">关键症状：怕冷怕风、发热恶寒、鼻塞流涕</div>
+<div id="by-medicine" class="tab-content active">
+<div class="medicine-card" onclick="toggleDetail('med-1')">
+<div class="medicine-name">葛根汤颗粒</div>
+<div class="medicine-effect">解肌散寒，主治风寒感冒、颈椎病、肩周炎、落枕</div>
+<div class="medicine-tags"><span class="tag tag-symptom">怕冷怕风</span><span class="tag tag-symptom">项背强急不舒</span><span class="tag tag-symptom">后背僵硬疼痛</span></div>
+<div id="med-1" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>葛根12克、麻黄9克、桂枝6克、白芍6克、炙甘草6克、生姜3-6片</p>
+<h4>🎯 主治</h4><p>风寒感冒、颈椎病、肩周炎、落枕</p>
+<h4>😷 适用症状</h4><p>怕冷怕风、项背强急不舒、后背僵硬疼痛</p>
 <a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 颈椎/肩周 -->
-<div class="symptom-card" onclick="toggleDetail('sym-2')">
-<div class="symptom-name">颈椎/肩周</div>
-<div class="symptom-desc">颈椎病、肩周炎、落枕，项背强急不舒，后背僵硬疼痛</div>
-<div class="medicine-tags"><span class="tag tag-medicine">葛根汤颗粒</span></div>
-<div id="sym-2" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 葛根汤颗粒 ⭐首选方</div>
-<div class="effect">解肌散寒，疏通膀胱经</div>
-<div class="symptoms">关键症状：项背强急不舒、后背僵硬疼痛、颈椎病、肩周炎、落枕</div>
-<p style="margin-top:0.5rem;color:#666;font-size:0.85rem;">📌 治疗颈椎病的首选方，东汉张仲景《伤寒论》名方</p>
-<a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 皮肤/色斑 -->
-<div class="symptom-card" onclick="toggleDetail('sym-3')">
-<div class="symptom-name">皮肤/色斑</div>
-<div class="symptom-desc">黄褐斑、雀斑、面部色斑，气血失调，肝郁</div>
-<div class="medicine-tags"><span class="tag tag-medicine">复方木尼孜其颗粒</span></div>
-<div id="sym-3" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 复方木尼孜其颗粒（维药）</div>
-<div class="effect">调节体液，清肝利胆，淡化色斑</div>
-<div class="symptoms">关键症状：面部色斑、黄褐斑、雀斑、气血失调、肝郁</div>
-<p style="margin-top:0.5rem;color:#666;font-size:0.85rem;">📌 维药中的当家花旦，以种子药为主调节肝肾</p>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-2')">
+<div class="medicine-name">复方木尼孜其颗粒</div>
+<div class="medicine-effect">调节体液，清肝利胆，淡化色斑（维药）</div>
+<div class="medicine-tags"><span class="tag tag-symptom">面部色斑</span><span class="tag tag-symptom">气血失调</span><span class="tag tag-symptom">肝郁</span></div>
+<div id="med-2" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>菊苣子、芹菜根、菊苣根、香青兰子、黑种草子、茴香根皮</p>
+<h4>🎯 主治</h4><p>黄褐斑、雀斑、玫瑰糠疹、痤疮、湿疹、皮炎</p>
+<h4>😷 适用症状</h4><p>面部色斑、气血失调、肝郁</p>
 <a href="https://www.cnblogs.com/testzcy/p/18922556" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 皮肤/痤疮 -->
-<div class="symptom-card" onclick="toggleDetail('sym-4')">
-<div class="symptom-name">皮肤/痤疮</div>
-<div class="symptom-desc">痤疮、玫瑰糠疹、湿疹、皮炎</div>
-<div class="medicine-tags"><span class="tag tag-medicine">复方木尼孜其颗粒</span></div>
-<div id="sym-4" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 复方木尼孜其颗粒（维药）</div>
-<div class="effect">调节体液，疏风解毒</div>
-<div class="symptoms">适用：痤疮、玫瑰糠疹、湿疹、皮炎</div>
-<a href="https://www.cnblogs.com/testzcy/p/18922556" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 脾胃/气血 -->
-<div class="symptom-card" onclick="toggleDetail('sym-5')">
-<div class="symptom-name">脾胃/气血</div>
-<div class="symptom-desc">脾胃虚弱，气血不足，面色萎黄，神疲乏力，食欲不振</div>
-<div class="medicine-tags"><span class="tag tag-medicine">健脾补血颗粒</span></div>
-<div id="sym-5" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 健脾补血颗粒</div>
-<div class="effect">健脾益气，补血生血——补得进去，补得有效</div>
-<div class="symptoms">关键症状：面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</div>
-<p style="margin-top:0.5rem;color:#666;font-size:0.85rem;">📌 以四君子汤为底，药性平和，儿童也可服用</p>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-3')">
+<div class="medicine-name">健脾补血颗粒</div>
+<div class="medicine-effect">健脾益气，补血生血——补得进去，补得有效</div>
+<div class="medicine-tags"><span class="tag tag-symptom">面色萎黄或苍白</span><span class="tag tag-symptom">神疲乏力</span><span class="tag tag-symptom">少气懒言</span><span class="tag tag-symptom">食欲不振</span></div>
+<div id="med-3" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>党参、茯苓、皂矾、神曲茶、黑豆（炒）、白术</p>
+<h4>🎯 主治</h4><p>脾胃虚弱、气血不足、缺铁性贫血</p>
+<h4>😷 适用症状</h4><p>面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</p>
 <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 贫血/缺铁 -->
-<div class="symptom-card" onclick="toggleDetail('sym-6')">
-<div class="symptom-name">贫血/缺铁</div>
-<div class="symptom-desc">缺铁性贫血（脾胃虚弱型），面色萎黄</div>
-<div class="medicine-tags"><span class="tag tag-medicine">健脾补血颗粒</span></div>
-<div id="sym-6" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 健脾补血颗粒</div>
-<div class="effect">健脾益气，补血生血</div>
-<div class="symptoms">适用：脾胃虚弱型缺铁性贫血</div>
-<p style="margin-top:0.5rem;color:#666;font-size:0.85rem;">📌 含皂矾、黑豆，直接补充铁元素</p>
-<a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-
-<!-- 脾胃/上火 -->
-<div class="symptom-card" onclick="toggleDetail('sym-7')">
-<div class="symptom-name">脾胃/上火</div>
-<div class="symptom-desc">脾胃伏火，口臭，口腔溃疡，嘴唇干裂，口干口渴</div>
-<div class="medicine-tags"><span class="tag tag-medicine">泻黄散（藿香清胃胶囊）</span></div>
-<div id="sym-7" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 泻黄散（藿香清胃胶囊）</div>
-<div class="effect">清泻脾胃伏火——火郁发之</div>
-<div class="symptoms">关键症状：嘴唇干裂起皮、口腔溃疡、口干口渴口臭、善饥但吃不下</div>
-<p style="margin-top:0.5rem;color:#666;font-size:0.85rem;">📌 宋朝钱乙创立，平和安全，小儿可用</p>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-4')">
+<div class="medicine-name">泻黄散（藿香清胃胶囊）</div>
+<div class="medicine-effect">清泻脾胃伏火——火郁发之</div>
+<div class="medicine-tags"><span class="tag tag-symptom">嘴唇干裂起皮</span><span class="tag tag-symptom">口腔溃疡</span><span class="tag tag-symptom">口干口渴口臭</span><span class="tag tag-symptom">善饥但吃不下</span></div>
+<div id="med-4" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>栀子3克、石膏15克、藿香21克、防风12克、甘草9克</p>
+<h4>🎯 主治</h4><p>脾胃伏火、口臭、口腔溃疡</p>
+<h4>😷 适用症状</h4><p>嘴唇干裂起皮、口腔溃疡、口干口渴口臭、善饥但吃不下</p>
 <a href="https://www.10100.com/article/27473726" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-5')">
+<div class="medicine-name">荆防颗粒</div>
+<div class="medicine-effect">疏风散寒，宣肺解表，治风寒感冒和流感初期</div>
+<div class="medicine-tags"><span class="tag tag-symptom">发热</span><span class="tag tag-symptom">恶寒怕冷</span><span class="tag tag-symptom">鼻塞</span><span class="tag tag-symptom">打喷嚏</span></div>
+<div id="med-5" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>荆芥、防风、羌活、独活、柴胡、前胡</p>
+<h4>🎯 主治</h4><p>风寒感冒、流感初期、时疫</p>
+<h4>😷 适用症状</h4><p>发热、恶寒怕冷、鼻塞、打喷嚏、流清鼻涕、无汗</p>
+<a href="https://www.cnblogs.com/testzcy/p/18667956" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-6')">
+<div class="medicine-name">小青龙颗粒</div>
+<div class="medicine-effect">外散风寒，内化水饮，止咳名方</div>
+<div class="medicine-tags"><span class="tag tag-symptom">咳嗽剧烈</span><span class="tag tag-symptom">不能平躺</span><span class="tag tag-symptom">清稀白痰</span><span class="tag tag-symptom">像水或泡沫</span></div>
+<div id="med-6" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>麻黄10克、桂枝10克、白芍10克、炙甘草10克、五味子3克、干姜10克</p>
+<h4>🎯 主治</h4><p>外寒里饮咳嗽、风寒感冒、咳吐白痰</p>
+<h4>😷 适用症状</h4><p>咳嗽剧烈、不能平躺、清稀白痰、像水或泡沫、遇冷加重</p>
+<a href="https://www.cnblogs.com/testzcy/p/18678614" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-7')">
+<div class="medicine-name">轻身消胖丸</div>
+<div class="medicine-effect">益气健脾，利水消肿，专治水胖型肥胖</div>
+<div class="medicine-tags"><span class="tag tag-symptom">舌苔腻</span><span class="tag tag-symptom">舌头水滑</span><span class="tag tag-symptom">四肢乏力沉重</span><span class="tag tag-symptom">水胖</span></div>
+<div id="med-7" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>罗布麻叶、白术、薏苡仁、芒硝、防己、海藻</p>
+<h4>🎯 主治</h4><p>水湿型肥胖、脾胃虚弱、湿气重</p>
+<h4>😷 适用症状</h4><p>舌苔腻、舌头水滑、四肢乏力沉重、水胖</p>
+<a href="https://www.cnblogs.com/testzcy/p/18641631" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-8')">
+<div class="medicine-name">附子理中丸</div>
+<div class="medicine-effect">温补脾肾阳气，治脾胃虚寒型鼻炎</div>
+<div class="medicine-tags"><span class="tag tag-symptom">流清鼻涕</span><span class="tag tag-symptom">舌质淡舌苔白</span><span class="tag tag-symptom">大便稀溏</span><span class="tag tag-symptom">吃凉拉肚子</span></div>
+<div id="med-8" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>制附子、党参、干姜、炒白术、甘草</p>
+<h4>🎯 主治</h4><p>慢性鼻炎、过敏性鼻炎、脾胃虚寒</p>
+<h4>😷 适用症状</h4><p>流清鼻涕、舌质淡舌苔白、大便稀溏、吃凉拉肚子、早上打喷嚏</p>
+<a href="https://www.cnblogs.com/testzcy/p/18084427" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-9')">
+<div class="medicine-name">益肝明目口服液</div>
+<div class="medicine-effect">滋补肝血，明目养眼，防近视</div>
+<div class="medicine-tags"><span class="tag tag-symptom">眼睛干涩</span><span class="tag tag-symptom">视物模糊</span><span class="tag tag-symptom">用眼过度</span><span class="tag tag-symptom">眼疲劳</span></div>
+<div id="med-9" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>当归、川芎、白芍、枸杞子、麦冬、玉竹</p>
+<h4>🎯 主治</h4><p>肝血不足、眼睛干涩、近视</p>
+<h4>😷 适用症状</h4><p>眼睛干涩、视物模糊、用眼过度、眼疲劳</p>
+<a href="https://www.cnblogs.com/testzcy/p/18678615" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-10')">
+<div class="medicine-name">香菊胶囊</div>
+<div class="medicine-effect">清热解毒，祛风通窍，治风热型鼻炎</div>
+<div class="medicine-tags"><span class="tag tag-symptom">鼻塞</span><span class="tag tag-symptom">流黄鼻涕</span><span class="tag tag-symptom">白黏涕</span><span class="tag tag-symptom">头昏头痛</span></div>
+<div id="med-10" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>化香树果序、防风、黄芪、夏枯草、野菊花、白芷</p>
+<h4>🎯 主治</h4><p>急慢性鼻炎、过敏性鼻炎、鼻窦炎</p>
+<h4>😷 适用症状</h4><p>鼻塞、流黄鼻涕、白黏涕、头昏头痛</p>
+<a href="https://www.cnblogs.com/testzcy/p/18623717" class="source-link" target="_blank">查看原文 →</a>
+</div></div>
+<div class="medicine-card" onclick="toggleDetail('med-11')">
+<div class="medicine-name">紫草软膏</div>
+<div class="medicine-effect">养血润燥，祛风止痒，治干性湿疹</div>
+<div class="medicine-tags"><span class="tag tag-symptom">皮肤干燥</span><span class="tag tag-symptom">脱屑</span><span class="tag tag-symptom">干裂</span><span class="tag tag-symptom">痒</span></div>
+<div id="med-11" class="detail-panel" onclick="event.stopPropagation()">
+<h4>📋 方剂组成</h4><p>紫草、当归、防风、地黄、白芷、乳香</p>
+<h4>🎯 主治</h4><p>干性湿疹、皮肤干燥、脱屑</p>
+<h4>😷 适用症状</h4><p>皮肤干燥、脱屑、干裂、痒</p>
+<a href="https://www.cnblogs.com/testzcy/p/18270539" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div><div id="by-disease" class="tab-content">
+<div class="disease-card" onclick="toggleDetail('dis-感冒-颈椎')">
+<div class="disease-name">感冒/颈椎</div><div class="disease-desc">后背僵硬疼痛、怕冷怕风、项背强急不舒</div><div class="disease-medicines"><span class="tag tag-medicine">葛根汤颗粒</span></div>
+<div id="dis-感冒-颈椎" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-1')">
+<div class="name">💊 葛根汤颗粒</div><div class="effect">解肌散寒，主治风寒感冒、颈椎病、肩周炎、落枕</div>
 </div>
-</div>
-</div>
-
-<!-- 口腔/溃疡 -->
-<div class="symptom-card" onclick="toggleDetail('sym-8')">
-<div class="symptom-name">口腔/溃疡</div>
-<div class="symptom-desc">口腔溃疡，反复发作，脾胃伏火</div>
-<div class="medicine-tags"><span class="tag tag-medicine">泻黄散（藿香清胃胶囊）</span></div>
-<div id="sym-8" class="detail-panel" onclick="event.stopPropagation()">
-<div class="medicine-item">
-<div class="name">💊 泻黄散（藿香清胃胶囊）</div>
-<div class="effect">清泻脾胃伏火</div>
-<div class="symptoms">适用：口腔溃疡、口臭、脾胃伏火</div>
-<a href="https://www.10100.com/article/27473726" class="source-link" target="_blank">查看原文 →</a>
-</div>
-</div>
-</div>
-</div>
-
-<div id="by-medicine" class="tab-content">
-<div class="symptom-card" onclick="toggleDetail('med-detail-1')">
-<div class="symptom-name">葛根汤颗粒</div>
-<div class="symptom-desc">解肌散寒，主治风寒感冒、颈椎病、肩周炎、落枕</div>
-<div class="medicine-tags">
-<span class="tag tag-medicine">感冒/风寒</span>
-<span class="tag tag-medicine">颈椎/肩周</span>
-</div>
-<div id="med-detail-1" class="detail-panel" onclick="event.stopPropagation()">
-<p><strong>来源</strong>：东汉张仲景《伤寒论》</p>
-<p><strong>原方</strong>：葛根汤</p>
+<div id="med-detail-1" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
 <p><strong>组成</strong>：葛根12克、麻黄9克、桂枝6克、白芍6克、炙甘草6克、生姜3-6片、大枣6-12枚</p>
 <p><strong>主治</strong>：风寒感冒、颈椎病、肩周炎、落枕</p>
-<p><strong>症状</strong>：怕冷怕风、项背强急不舒、后背僵硬疼痛、发热恶寒、鼻塞流涕</p>
 <a href="https://www.cnblogs.com/testzcy/p/18188726" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-皮肤-美容')">
+<div class="disease-name">皮肤/美容</div><div class="disease-desc">面部色斑、气血失调、肝郁</div><div class="disease-medicines"><span class="tag tag-medicine">复方木尼孜其颗粒</span></div>
+<div id="dis-皮肤-美容" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-2')">
+<div class="name">💊 复方木尼孜其颗粒</div><div class="effect">调节体液，清肝利胆，淡化色斑（维药）</div>
 </div>
-</div>
-
-<div class="symptom-card" onclick="toggleDetail('med-detail-2')">
-<div class="symptom-name">复方木尼孜其颗粒</div>
-<div class="symptom-desc">调节体液，清肝利胆，淡化色斑（维药）</div>
-<div class="medicine-tags">
-<span class="tag tag-medicine">皮肤/色斑</span>
-<span class="tag tag-medicine">皮肤/痤疮</span>
-</div>
-<div id="med-detail-2" class="detail-panel" onclick="event.stopPropagation()">
-<p><strong>来源</strong>：维吾尔医药</p>
-<p><strong>组成</strong>：菊苣子、菊苣根、骆驼蓬子、香茅、茴香根皮、罗勒子、黑种草子、茴芹果、洋甘菊、香青兰子、蜀葵子、甘草</p>
+<div id="med-detail-2" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：菊苣子、芹菜根、菊苣根、香青兰子、黑种草子、茴香根皮、洋甘菊、甘草</p>
 <p><strong>主治</strong>：黄褐斑、雀斑、玫瑰糠疹、痤疮、湿疹、皮炎</p>
-<p><strong>症状</strong>：面部色斑、气血失调、肝郁</p>
 <a href="https://www.cnblogs.com/testzcy/p/18922556" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-脾胃-气血')">
+<div class="disease-name">脾胃/气血</div><div class="disease-desc">神疲乏力、面色萎黄或苍白、少气懒言、食后腹胀</div><div class="disease-medicines"><span class="tag tag-medicine">健脾补血颗粒</span></div>
+<div id="dis-脾胃-气血" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-3')">
+<div class="name">💊 健脾补血颗粒</div><div class="effect">健脾益气，补血生血——补得进去，补得有效</div>
 </div>
-</div>
-
-<div class="symptom-card" onclick="toggleDetail('med-detail-3')">
-<div class="symptom-name">健脾补血颗粒</div>
-<div class="symptom-desc">健脾益气，补血生血——补得进去，补得有效</div>
-<div class="medicine-tags">
-<span class="tag tag-medicine">脾胃/气血</span>
-<span class="tag tag-medicine">贫血/缺铁</span>
-</div>
-<div id="med-detail-3" class="detail-panel" onclick="event.stopPropagation()">
-<p><strong>来源</strong>：四君子汤加减</p>
-<p><strong>原方</strong>：四君子汤</p>
-<p><strong>组成</strong>：党参、白术、茯苓、甘草、皂矾、黑豆（炒）、陈皮、神曲茶</p>
-<p><strong>主治</strong>：脾胃虚弱、气血不足、缺铁性贫血（脾胃虚弱型）</p>
-<p><strong>症状</strong>：面色萎黄或苍白、神疲乏力、少气懒言、食欲不振、食后腹胀</p>
+<div id="med-detail-3" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：党参、茯苓、皂矾、神曲茶、黑豆（炒）、白术、陈皮、甘草</p>
+<p><strong>主治</strong>：脾胃虚弱、气血不足、缺铁性贫血</p>
 <a href="https://www.163.com/dy/article/KEJ1RQG70552PZ4D.html" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-口臭-上火')">
+<div class="disease-name">口臭/上火</div><div class="disease-desc">口腔溃疡、嘴唇干裂起皮、口干口渴口臭、善饥但吃不下</div><div class="disease-medicines"><span class="tag tag-medicine">泻黄散（藿香清胃</span></div>
+<div id="dis-口臭-上火" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-4')">
+<div class="name">💊 泻黄散（藿香清胃胶囊）</div><div class="effect">清泻脾胃伏火——火郁发之</div>
 </div>
-</div>
-
-<div class="symptom-card" onclick="toggleDetail('med-detail-4')">
-<div class="symptom-name">泻黄散（藿香清胃胶囊）</div>
-<div class="symptom-desc">清泻脾胃伏火——火郁发之</div>
-<div class="medicine-tags">
-<span class="tag tag-medicine">脾胃/上火</span>
-<span class="tag tag-medicine">口腔/溃疡</span>
-</div>
-<div id="med-detail-4" class="detail-panel" onclick="event.stopPropagation()">
-<p><strong>来源</strong>：宋朝钱乙《小儿药证直诀》</p>
-<p><strong>原方</strong>：泻黄散</p>
+<div id="med-detail-4" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
 <p><strong>组成</strong>：栀子3克、石膏15克、藿香21克、防风12克、甘草9克</p>
-<p><strong>主治</strong>：脾胃伏火、口臭、口腔溃疡、口干口渴</p>
-<p><strong>症状</strong>：嘴唇干裂起皮、口腔溃疡、口干口渴口臭、善饥但吃不下</p>
+<p><strong>主治</strong>：脾胃伏火、口臭、口腔溃疡</p>
 <a href="https://www.10100.com/article/27473726" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-感冒-流感')">
+<div class="disease-name">感冒/流感</div><div class="disease-desc">流清鼻涕、无汗、打喷嚏、发热</div><div class="disease-medicines"><span class="tag tag-medicine">荆防颗粒</span></div>
+<div id="dis-感冒-流感" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-5')">
+<div class="name">💊 荆防颗粒</div><div class="effect">疏风散寒，宣肺解表，治风寒感冒和流感初期</div>
 </div>
+<div id="med-detail-5" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：荆芥、防风、羌活、独活、柴胡、前胡、川芎、桔梗</p>
+<p><strong>主治</strong>：风寒感冒、流感初期、时疫</p>
+<a href="https://www.cnblogs.com/testzcy/p/18667956" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-咳嗽-痰饮')">
+<div class="disease-name">咳嗽/痰饮</div><div class="disease-desc">不能平躺、咳嗽剧烈、清稀白痰、像水或泡沫</div><div class="disease-medicines"><span class="tag tag-medicine">小青龙颗粒</span></div>
+<div id="dis-咳嗽-痰饮" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-6')">
+<div class="name">💊 小青龙颗粒</div><div class="effect">外散风寒，内化水饮，止咳名方</div>
 </div>
+<div id="med-detail-6" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：麻黄10克、桂枝10克、白芍10克、炙甘草10克、五味子3克、干姜10克、细辛3克、法半夏10克</p>
+<p><strong>主治</strong>：外寒里饮咳嗽、风寒感冒、咳吐白痰</p>
+<a href="https://www.cnblogs.com/testzcy/p/18678614" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-减肥-利水')">
+<div class="disease-name">减肥/利水</div><div class="disease-desc">舌苔腻、舌头水滑、水胖、四肢乏力沉重</div><div class="disease-medicines"><span class="tag tag-medicine">轻身消胖丸</span></div>
+<div id="dis-减肥-利水" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-7')">
+<div class="name">💊 轻身消胖丸</div><div class="effect">益气健脾，利水消肿，专治水胖型肥胖</div>
 </div>
-
-<div class="footer">
-<p>内容整理自微信公众号「温暖中医」</p>
-<p>本站仅供个人学习参考，版权归原作者</p>
-<p>© 2026 温暖中医索引 · 共4篇精读方剂</p>
+<div id="med-detail-7" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：罗布麻叶、白术、薏苡仁、芒硝、防己、海藻、当归、川芎</p>
+<p><strong>主治</strong>：水湿型肥胖、脾胃虚弱、湿气重</p>
+<a href="https://www.cnblogs.com/testzcy/p/18641631" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-脾胃-鼻炎')">
+<div class="disease-name">脾胃/鼻炎</div><div class="disease-desc">大便稀溏、流清鼻涕、舌质淡舌苔白、吃凉拉肚子</div><div class="disease-medicines"><span class="tag tag-medicine">附子理中丸</span></div>
+<div id="dis-脾胃-鼻炎" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-8')">
+<div class="name">💊 附子理中丸</div><div class="effect">温补脾肾阳气，治脾胃虚寒型鼻炎</div>
 </div>
+<div id="med-detail-8" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：制附子、党参、干姜、炒白术、甘草</p>
+<p><strong>主治</strong>：慢性鼻炎、过敏性鼻炎、脾胃虚寒</p>
+<a href="https://www.cnblogs.com/testzcy/p/18084427" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-眼睛-肝血')">
+<div class="disease-name">眼睛/肝血</div><div class="disease-desc">视物模糊、眼睛干涩、眼疲劳、用眼过度</div><div class="disease-medicines"><span class="tag tag-medicine">益肝明目口服液</span></div>
+<div id="dis-眼睛-肝血" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-9')">
+<div class="name">💊 益肝明目口服液</div><div class="effect">滋补肝血，明目养眼，防近视</div>
 </div>
-
+<div id="med-detail-9" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：当归、川芎、白芍、枸杞子、麦冬、玉竹、熟地、九节菖蒲</p>
+<p><strong>主治</strong>：肝血不足、眼睛干涩、近视</p>
+<a href="https://www.cnblogs.com/testzcy/p/18678615" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-鼻炎-呼吸道')">
+<div class="disease-name">鼻炎/呼吸道</div><div class="disease-desc">头昏头痛、鼻塞、白黏涕、流黄鼻涕</div><div class="disease-medicines"><span class="tag tag-medicine">香菊胶囊</span></div>
+<div id="dis-鼻炎-呼吸道" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-10')">
+<div class="name">💊 香菊胶囊</div><div class="effect">清热解毒，祛风通窍，治风热型鼻炎</div>
+</div>
+<div id="med-detail-10" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：化香树果序、防风、黄芪、夏枯草、野菊花、白芷、辛夷、川芎</p>
+<p><strong>主治</strong>：急慢性鼻炎、过敏性鼻炎、鼻窦炎</p>
+<a href="https://www.cnblogs.com/testzcy/p/18623717" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div>
+<div class="disease-card" onclick="toggleDetail('dis-皮肤-湿疹')">
+<div class="disease-name">皮肤/湿疹</div><div class="disease-desc">脱屑、皮肤干燥、干裂、痒</div><div class="disease-medicines"><span class="tag tag-medicine">紫草软膏</span></div>
+<div id="dis-皮肤-湿疹" class="detail-panel" onclick="event.stopPropagation()">
+<div class="medicine-list-item" onclick="showMedicineDetail('med-detail-11')">
+<div class="name">💊 紫草软膏</div><div class="effect">养血润燥，祛风止痒，治干性湿疹</div>
+</div>
+<div id="med-detail-11" style="display:none;margin-top:1rem;padding:1rem;background:#fff;border-radius:8px;">
+<p><strong>组成</strong>：紫草、当归、防风、地黄、白芷、乳香、没药</p>
+<p><strong>主治</strong>：干性湿疹、皮肤干燥、脱屑</p>
+<a href="https://www.cnblogs.com/testzcy/p/18270539" class="source-link" target="_blank">查看原文 →</a>
+</div></div></div></div>
+<div class="footer"><p>内容整理自微信公众号「温暖中医」</p><p>本站仅供个人学习参考，版权归原作者</p><p>© 2026 温暖中医索引 · 共11篇方剂</p></div>
+</div>
 <script>
-function switchTab(tabId) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-}
-
-function toggleDetail(detailId) {
-    const panel = document.getElementById(detailId);
-    panel.classList.toggle('active');
-}
-
-function doSearch() {
-    const query = document.getElementById('search').value.toLowerCase();
-    document.querySelectorAll('.symptom-card').forEach(card => {
-        card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-    });
-}
+function switchTab(n){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById(n).classList.add('active');}
+function toggleDetail(i){document.getElementById(i).classList.toggle('active');}
+function showMedicineDetail(i){var d=document.getElementById(i);d.style.display=d.style.display==='none'?'block':'none';event.stopPropagation();}
+function doSearch(){var q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.medicine-card,.disease-card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none');}
 </script>
-</body>
-</html>
+</body></html>
