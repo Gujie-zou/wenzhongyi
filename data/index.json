@@ -83,6 +83,66 @@
         }
       ]
     },
+    "头痛/偏头痛": {
+      "description": "头痛、偏头痛、紧张性头痛、神经性头痛",
+      "medicines": [
+        {
+          "name": "正天丸",
+          "type": "中成药",
+          "original": null,
+          "core_effect": "养血活血、疏风散寒、平肝潜阳",
+          "key_symptoms": ["偏头痛", "紧张性头痛", "神经性头痛", "颈椎病型头痛", "经前头痛"],
+          "source": "陈宝田创立方",
+          "url": "articles/2026-03-25_正天丸.md",
+          "note": "中医界布洛芬，40多年临床应用，多种头痛一网打尽"
+        }
+      ]
+    },
+    "脾胃/祛湿": {
+      "description": "脾虚湿重，舌苔白腻，大便不成形",
+      "medicines": [
+        {
+          "name": "苍苓汤",
+          "type": "方剂（茶饮）",
+          "original": null,
+          "core_effect": "燥湿健脾，利水渗湿",
+          "key_symptoms": ["舌苔白腻", "大便不成形", "身体困重", "湿气重"],
+          "source": "经验方",
+          "url": "articles/2026-02-24_苍苓汤.md",
+          "note": "几块钱祛湿健脾，当茶饮用"
+        }
+      ]
+    },
+    "情志/疏肝": {
+      "description": "情绪不佳，肝郁气滞，压力大焦虑",
+      "medicines": [
+        {
+          "name": "萱草忘忧汤",
+          "type": "方剂（茶饮）",
+          "original": "萱草忘忧汤",
+          "core_effect": "疏肝解郁，宁心安神",
+          "key_symptoms": ["压力大", "焦虑", "情绪不佳", "胸口憋闷", "长期不开心"],
+          "source": "《医醇剩义》费伯雄",
+          "url": "articles/2026-03-10_萱草忘忧汤.md",
+          "note": "蔬菜中的逍遥丸，黄花菜+合欢花"
+        }
+      ]
+    },
+    "减肥/经络": {
+      "description": "下半身肥胖，腿粗水肿，经络疏通减肥法",
+      "medicines": [
+        {
+          "name": "敲胆经",
+          "type": "经络按摩法",
+          "original": null,
+          "core_effect": "疏通经络，促进代谢，燃烧脂肪",
+          "key_symptoms": ["下半身肥胖", "腿粗", "水肿", "臀部肥胖"],
+          "source": "中医经络理论",
+          "url": "articles/2026-03-20_敲胆经减肥.md",
+          "note": "不用吃药，每天几分钟，一个月可减7-8斤"
+        }
+      ]
+    },
     "脾胃/气血": {
       "description": "脾胃虚弱，气血不足，面色萎黄",
       "medicines": [
@@ -320,13 +380,45 @@
       "core_effect": "养血润燥，祛风止痒",
       "indications": ["干性湿疹", "皮肤干燥", "脱屑"],
       "url": "https://www.cnblogs.com/testzcy/p/18270539"
+    },
+    "正天丸": {
+      "original": null,
+      "source": "陈宝田创立方",
+      "category": ["头痛/偏头痛"],
+      "core_effect": "养血活血、疏风散寒、平肝潜阳",
+      "indications": ["偏头痛", "紧张性头痛", "神经性头痛", "颈椎病型头痛", "经前头痛"],
+      "url": "articles/2026-03-25_正天丸.md"
+    },
+    "苍苓汤": {
+      "original": null,
+      "source": "经验方",
+      "category": ["脾胃/祛湿"],
+      "core_effect": "燥湿健脾，利水渗湿",
+      "indications": ["脾虚湿重", "舌苔白腻", "大便不成形"],
+      "url": "articles/2026-02-24_苍苓汤.md"
+    },
+    "萱草忘忧汤": {
+      "original": "萱草忘忧汤",
+      "source": "《医醇剩义》费伯雄",
+      "category": ["情志/疏肝"],
+      "core_effect": "疏肝解郁，宁心安神",
+      "indications": ["情绪不佳", "压力大", "焦虑", "肝郁气滞"],
+      "url": "articles/2026-03-10_萱草忘忧汤.md"
+    },
+    "敲胆经": {
+      "original": null,
+      "source": "中医经络理论",
+      "category": ["减肥/经络"],
+      "core_effect": "疏通经络，促进代谢",
+      "indications": ["下半身肥胖", "腿粗", "水肿"],
+      "url": "articles/2026-03-20_敲胆经减肥.md"
     }
   },
   "meta": {
-    "total_articles": 11,
-    "total_medicines": 11,
-    "total_symptoms": 14,
-    "last_updated": "2026-02-27",
-    "version": "2.2"
+    "total_articles": 15,
+    "total_medicines": 15,
+    "total_symptoms": 19,
+    "last_updated": "2026-03-26",
+    "version": "2.3"
   }
 }
